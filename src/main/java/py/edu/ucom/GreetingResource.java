@@ -15,25 +15,4 @@ public class GreetingResource {
         return "Hello from Quarkus REST";
     }
 
-    @Path("recursos-baicos")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String recursosBaicos() {
-        return "recursos-baicos";
-    }
-
-    @Path("recursos-baicos/suma")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public Integer recursosBaicosSuma() {
-        return 5+5;
-    }
-
-    @Path("recursos-baicos/resta")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public Integer recursosBaicosResta() {
-        return 100-5;
-    }
-
 }
