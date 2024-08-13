@@ -5,19 +5,35 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
-@Path("/hello")
+@Path("/resources")
 public class GreetingResource {
 
+    @Path("hello")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
         return "Hello from Quarkus REST";
     }
 
-    @Path("categoria-gastos")
+    @Path("recursos-baicos")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String categoriaGastos() {
-        return "categoria-gastos";
+    public String recursosBaicos() {
+        return "recursos-baicos";
     }
+
+    @Path("recursos-baicos/suma")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Integer recursosBaicosSuma() {
+        return 5+5;
+    }
+
+    @Path("recursos-baicos/resta")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Integer recursosBaicosResta() {
+        return 100-5;
+    }
+
 }
