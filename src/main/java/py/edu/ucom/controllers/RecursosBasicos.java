@@ -1,4 +1,4 @@
-package py.edu.ucom;
+package py.edu.ucom.controllers;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
