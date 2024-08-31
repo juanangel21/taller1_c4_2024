@@ -1,12 +1,11 @@
 package py.edu.ucom.services.api;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import py.edu.ucom.config.GenericDAO;
-import py.edu.ucom.entities.apiresponse.Gastos;
-import py.edu.ucom.repository.ApiResponseRepository;
-
 import java.util.List;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import py.edu.ucom.entities.apiresponse.Gastos;
+import py.edu.ucom.repository.ApiResponseRepository;
+import py.edu.ucom.config.GenericDAO;
 
 @ApplicationScoped
 public class GenericDaoServiceWithJason implements GenericDAO<Gastos, Integer> {
@@ -54,5 +53,6 @@ public class GenericDaoServiceWithJason implements GenericDAO<Gastos, Integer> {
         }
         Gastos data = this.repository.obtenerById(id);
         return data;
+
     }
 }

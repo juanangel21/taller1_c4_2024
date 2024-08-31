@@ -15,7 +15,7 @@ import java.util.Optional;
 @ApplicationScoped
 public class ApiResponseRepository {
 
-    private static final String FILE_PATH = "src/main/resources/response.json";
+    private static final String FILE_PATH = "src/main/resources/gastos.json";
     private List<Gastos> gastosList;
     private ObjectMapper objectMapper;
 
