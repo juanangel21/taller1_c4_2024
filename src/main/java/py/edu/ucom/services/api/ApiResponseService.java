@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class ApiResponseService {
-    public String responseDummy(){
-        return "Retorna desde el servicio";
+    public String responseDummy() {
+        return "retorna desde el servicio";
     }
 }

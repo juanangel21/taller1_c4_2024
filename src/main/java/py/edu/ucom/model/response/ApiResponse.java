@@ -5,14 +5,17 @@ public class ApiResponse<T> {
     private Integer code;
     private T data;
 
+    // Constructor vacío
     public ApiResponse() {}
 
+    // Constructor con todos los atributos
     public ApiResponse(String message, Integer code, T data) {
         this.message = message;
         this.code = code;
         this.data = data;
     }
 
+    // Getters y Setters
     public String getMessage() {
         return message;
     }
@@ -37,6 +40,7 @@ public class ApiResponse<T> {
         this.data = data;
     }
 
+    // Método toString para fácil visualización
     @Override
     public String toString() {
         return "ApiResponse{" +

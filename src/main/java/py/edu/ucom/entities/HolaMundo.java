@@ -3,37 +3,37 @@ package py.edu.ucom.entities;
 import java.util.Date;
 
 public class HolaMundo {
-    public String nombre;
+    public String nobmre;
     public Integer edad;
     public Date fechaNacimiento;
 
-    public String getNombre(){
-        return nombre;
+    public String getNobmre() {
+        return nobmre;
     }
 
-    public void setNombre(String nombre){
-        this.nombre = nombre;
+    public void setNobmre(String nobmre) {
+        this.nobmre = nobmre;
     }
 
-    public Integer getEdad(){
+    public Integer getEdad() {
         return edad;
     }
 
-    public void setEdad(Integer edad){
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 
-    public Date getFechaNacimiento(){
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento){
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
     @Override
     public String toString() {
-        return "HolaMundo [nombre=" + nombre + ", edad=" + edad + ", fechaNacimiento=" + fechaNacimiento + "]";
+        return "HolaMundo [nobmre=" + nobmre + ", edad=" + edad + ", fechaNacimiento=" + fechaNacimiento + "]";
     }
 
 }
