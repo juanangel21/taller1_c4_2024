@@ -2,6 +2,7 @@ package py.edu.ucom.entities.apiresponse;
 
 import java.util.Date;
 
+
 public class Gastos {
     private Integer id;
     private Date fecha;

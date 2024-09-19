@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -63,10 +64,13 @@ public class PresupuestoMensual implements Serializable {
     @Basic(optional = false)
     @Column(name = "estado")
     private String estado;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "presupuestoMensual")
     private List<PresupuestoCategoria> presupuestoCategoriaList;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPresupuesto")
     private List<Movimientos> movimientosList;
+    @JsonIgnore
     @JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
     @ManyToOne(optional = false)
     private Cliente idCliente;

@@ -1,12 +1,12 @@
 package py.edu.ucom.services.api;
 
-import java.util.List;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import py.edu.ucom.config.GenericDAO;
 import py.edu.ucom.entities.apiresponse.Cliente;
 import py.edu.ucom.repository.ClienteRepository;
+
+import java.util.List;
 
 @ApplicationScoped
 public class ClienteService implements GenericDAO<Cliente, Integer> {

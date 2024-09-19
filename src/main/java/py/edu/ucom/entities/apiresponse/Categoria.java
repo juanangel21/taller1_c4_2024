@@ -7,6 +7,7 @@ package py.edu.ucom.entities.apiresponse;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -48,8 +49,10 @@ public class Categoria implements Serializable {
     @Basic(optional = false)
     @Column(name = "tipo_categoria")
     private String tipoCategoria;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoria")
     private List<PresupuestoCategoria> presupuestoCategoriaList;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCategoria")
     private List<Movimientos> movimientosList;
 

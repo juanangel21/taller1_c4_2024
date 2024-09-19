@@ -6,6 +6,7 @@ package py.edu.ucom.entities.apiresponse;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
@@ -43,9 +44,11 @@ public class PresupuestoCategoria implements Serializable {
     @Basic(optional = false)
     @Column(name = "diferencia")
     private int diferencia;
+    @JsonIgnore
     @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Categoria categoria;
+    @JsonIgnore
     @JoinColumn(name = "id_presupuesto", referencedColumnName = "id_presupuesto", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private PresupuestoMensual presupuestoMensual;

@@ -11,8 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @ApplicationScoped
 public class PresupuestoRepository {
@@ -21,22 +22,21 @@ public class PresupuestoRepository {
     private List<Presupuesto> presupuestoList;
 
     @Inject
-    private ObjectMapper objectMapper;
+    ObjectMapper objectMapper;
 
     public PresupuestoRepository() {
-        objectMapper = new ObjectMapper();
         presupuestoList = cargarDatos();
     }
 
+    // Cargar la lista de presupuestos desde un archivo JSON
     private List<Presupuesto> cargarDatos() {
         try {
-            System.out.println("CARGA DE DATOS " + FILE_PATH);
+            System.out.println("CARGA DE DATOS DESDE: " + FILE_PATH);
             File file = new File(FILE_PATH);
-            if (!file.exists()) {
+            if (file.exists()) { // Corrección: Cargar si el archivo existe
                 return objectMapper.readValue(file, new TypeReference<List<Presupuesto>>() {});
             } else {
-
-                System.out.println("UPSSS NO HAY DATOS");
+                System.out.println("Archivo no encontrado, creando una nueva lista.");
                 return new ArrayList<>();
             }
         } catch (IOException e) {
@@ -45,22 +45,29 @@ public class PresupuestoRepository {
         }
     }
 
-    public void guardarDatos(){
-        try{
+    // Guardar la lista de presupuestos en un archivo JSON
+    public void guardarDatos() {
+        try {
             objectMapper.writeValue(new File(FILE_PATH), presupuestoList);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public Presupuesto obtenerById(Integer id){
-        return presupuestoList.stream().filter(presupuesto -> presupuesto.getId().equals(id)).findFirst().orElse(null);
+    // Obtener un presupuesto específico por su ID
+    public Presupuesto obtenerById(Integer id) {
+        return presupuestoList.stream()
+                .filter(presupuesto -> presupuesto.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 
-    public List<Presupuesto> listar(){
+    // Listar todos los presupuestos
+    public List<Presupuesto> listar() {
         return new ArrayList<>(presupuestoList);
     }
 
+    // Agregar un nuevo presupuesto
     public Presupuesto agregar(Presupuesto param) {
         Integer newId = presupuestoList.isEmpty() ? 1 : presupuestoList.stream().mapToInt(Presupuesto::getId).max().getAsInt() + 1;
         param.setId(newId);
@@ -69,10 +76,15 @@ public class PresupuestoRepository {
         return param;
     }
 
+    // Modificar un presupuesto existente
     public Presupuesto modificar(Presupuesto param) {
-        Optional<Presupuesto> existingPresupuesto = presupuestoList.stream().filter(presupuesto -> presupuesto.getId() == param.getId()).findFirst();
-        if (existingPresupuesto.isPresent()){
-            presupuestoList = presupuestoList.stream().map(presupuesto -> presupuesto.getId() == param.getId() ? param : presupuesto).collect(Collectors.toList());
+        Optional<Presupuesto> existingPresupuesto = presupuestoList.stream()
+                .filter(presupuesto -> presupuesto.getId().equals(param.getId()))
+                .findFirst();
+        if (existingPresupuesto.isPresent()) {
+            presupuestoList = presupuestoList.stream()
+                    .map(presupuesto -> presupuesto.getId().equals(param.getId()) ? param : presupuesto)
+                    .collect(Collectors.toList());
             guardarDatos();
             return param;
         } else {
@@ -80,19 +92,43 @@ public class PresupuestoRepository {
         }
     }
 
+    // Eliminar un presupuesto por ID
     public void eliminar(Integer id) {
-        presupuestoList = presupuestoList.stream().filter(presupuesto -> presupuesto.getId() != id).collect(Collectors.toList());
+        presupuestoList = presupuestoList.stream()
+                .filter(presupuesto -> !presupuesto.getId().equals(id))
+                .collect(Collectors.toList());
         guardarDatos();
     }
 
+    // Agregar un nuevo gasto a un presupuesto específico
     public void agregarGasto(Integer presupuestoId, Gastos gasto) {
-        Optional<Presupuesto> presupuestoOpt = Optional.ofNullable(obtenerById(presupuestoId));
-        if (presupuestoOpt.isPresent()) {
-            Presupuesto presupuesto = presupuestoOpt.get();
+        Presupuesto presupuesto = obtenerById(presupuestoId);
+        if (presupuesto != null) {
             presupuesto.getGastos().add(gasto);
             guardarDatos();
         } else {
             System.out.println("Presupuesto no encontrado con ID: " + presupuestoId);
         }
+    }
+
+    public long contarTodos() {
+        return presupuestoList.size();
+    }
+
+    public List<Presupuesto> buscarPorMontoEntre(double montoInicial, double montoFinal) {
+        return presupuestoList.stream()
+                .filter(p -> p.getMontoPresupuestado() >= montoInicial && p.getMontoPresupuestado() <= montoFinal)
+                .collect(Collectors.toList());
+    }
+
+    public List<Presupuesto> buscarMayorPresupuesto() {
+        Optional<Integer> maxMonto = presupuestoList.stream()
+                .map(Presupuesto::getMontoPresupuestado)
+                .max(Integer::compareTo);
+
+        return maxMonto.map(monto -> presupuestoList.stream()
+                        .filter(p -> p.getMontoPresupuestado().equals(monto))
+                        .collect(Collectors.toList()))
+                .orElse(new ArrayList<>());
     }
 }

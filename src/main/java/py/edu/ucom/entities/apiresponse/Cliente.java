@@ -7,6 +7,7 @@ package py.edu.ucom.entities.apiresponse;
 import java.io.Serializable;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -51,7 +52,7 @@ public class Cliente implements Serializable {
     @Basic(optional = false)
     @Column(name = "estado")
     private String estado;
-
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCliente")
     private List<PresupuestoMensual> presupuestoMensualList;
 
